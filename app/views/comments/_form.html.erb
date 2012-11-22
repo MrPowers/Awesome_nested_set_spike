@@ -1,0 +1,26 @@
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </div>
+
+  <%= f.hidden_field :parent_id, :value => params[:parent_id] %>
+
+  <p><%#= f.label :parent_id, "Parent Comment" %><%#= f.select :parent_id, nested_set_options(Comment, @comment) {|i| "#{'-' * i.level} #{i.body}" }, :prompt => "NONE: Make This A Root Comment" %> <br />
+      <small>NOTE: Leaving the above field blank makes it a root category</small>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
